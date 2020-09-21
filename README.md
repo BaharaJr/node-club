@@ -15,7 +15,9 @@
   }
 }
 ```
+
 `
+
 ### Profile
 
 ```JSON
@@ -186,7 +188,7 @@ Example request body:
 }
 ```
 
-No Returns a [User](#users-for-authentication)
+Returns a [User](#users-for-authentication)
 
 Required fields: `email`, `password`
 
@@ -245,18 +247,31 @@ Authentication optional,Returns a [Profile](#profile)
 ### Follow user
 
 `POST /api/profiles/:username/follow`
+Example request body:
+
+```JSON
+{
+  "userid": 1
+}
+```
 
 Returns a [Profile](#profile)
 
-No additional parameters required
 
 ### Unfollow user
 
 `DELETE /api/profiles/:username/follow`
 
+Example request body:
+
+```JSON
+{
+  "userid": 1
+}
+```
+
 Returns a [Profile](#profile)
 
-No additional parameters required
 
 ### List Articles
 
@@ -294,13 +309,13 @@ Authentication optional, will return [multiple articles](#multiple-articles), or
 
 Can also take `limit` and `offset` query parameters like [List Articles](#list-articles)
 
- will return [multiple articles](#multiple-articles) created by followed users, ordered by most recent first.
+will return [multiple articles](#multiple-articles) created by followed users, ordered by most recent first.
 
 ### Get Article
 
 `GET /api/articles/:id`
 
-No  will return [single article](#single-article)
+Will return [single article](#single-article)
 
 ### Create Article
 
@@ -319,7 +334,7 @@ Example request body:
 }
 ```
 
- will return an [Article](#single-article)
+will return an [Article](#single-article)
 
 Required fields: `title`, `description`, `body`
 
@@ -401,4 +416,4 @@ No additional parameters required
 
 `GET /api/tags`
 
-No Returns a [List of Tags](#list-of-tags)
+Returns a [List of Tags](#list-of-tags)
