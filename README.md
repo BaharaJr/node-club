@@ -413,3 +413,7 @@ No additional parameters required
 `GET /api/tags`
 
 Returns a [List of Tags](#list-of-tags)
+
+### Resources
+
+[Designing a REST API](https://mherman.org/blog/designing-a-restful-api-with-node-and-postgres/)
