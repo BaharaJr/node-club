@@ -2,11 +2,12 @@
 
 ## JSON Objects returned by API:
 
-### Users (for authentication)
+### Users
 
 ```JSON
 {
   "user": {
+    "id": 2,
     "email": "jake@jake.jake",
     "username": "jake",
     "bio": "I work at statefarm",
@@ -14,12 +15,13 @@
   }
 }
 ```
-
+`
 ### Profile
 
 ```JSON
 {
   "profile": {
+    "id":3,
     "username": "jake",
     "bio": "I work at statefarm",
     "image": "https://static.productionready.io/images/smiley-cyrus.jpg",
@@ -33,7 +35,7 @@
 ```JSON
 {
   "article": {
-    "slug": "how-to-train-your-dragon",
+    "id": 3,
     "title": "How to train your dragon",
     "description": "Ever wonder how?",
     "body": "It takes a Jacobian",
@@ -57,7 +59,7 @@
 ```JSON
 {
   "articles":[{
-    "slug": "how-to-train-your-dragon",
+    "id": 4,
     "title": "How to train your dragon",
     "description": "Ever wonder how?",
     "body": "It takes a Jacobian",
@@ -67,13 +69,14 @@
     "favorited": false,
     "favoritesCount": 0,
     "author": {
+      "id": 2,
       "username": "jake",
       "bio": "I work at statefarm",
       "image": "https://i.stack.imgur.com/xHWG8.jpg",
       "following": false
     }
   }, {
-    "slug": "how-to-train-your-dragon-2",
+    "id": 10,
     "title": "How to train your dragon 2",
     "description": "So toothless",
     "body": "It a dragon",
@@ -103,6 +106,7 @@
     "updatedAt": "2016-02-18T03:22:56.637Z",
     "body": "It takes a Jacobian",
     "author": {
+      "id": 7,
       "username": "jake",
       "bio": "I work at statefarm",
       "image": "https://i.stack.imgur.com/xHWG8.jpg",
@@ -122,6 +126,7 @@
     "updatedAt": "2016-02-18T03:22:56.637Z",
     "body": "It takes a Jacobian",
     "author": {
+      "id": 100,
       "username": "jake",
       "bio": "I work at statefarm",
       "image": "https://i.stack.imgur.com/xHWG8.jpg",
@@ -164,7 +169,6 @@ If a request fails any validations, expect a 422 and errors in the following for
 
 404 for Not found requests, when a resource can't be found to fulfill the request
 
-
 ## Endpoints:
 
 ### Authentication:
@@ -172,6 +176,7 @@ If a request fails any validations, expect a 422 and errors in the following for
 `POST /api/users/login`
 
 Example request body:
+
 ```JSON
 {
   "user":{
@@ -181,16 +186,16 @@ Example request body:
 }
 ```
 
-No authentication required, returns a [User](#users-for-authentication)
+No Returns a [User](#users-for-authentication)
 
 Required fields: `email`, `password`
-
 
 ### Registration:
 
 `POST /api/users`
 
 Example request body:
+
 ```JSON
 {
   "user":{
@@ -201,25 +206,22 @@ Example request body:
 }
 ```
 
-No authentication required, returns a [User](#users-for-authentication)
+Returns a [User](#users-for-authentication)
 
 Required fields: `email`, `username`, `password`
-
-
 
 ### Get Current User
 
 `GET /api/user`
 
-Authentication required, returns a [User](#users-for-authentication) that's the current user
-
-
+Returns a [User](#users-for-authentication) that's the current user
 
 ### Update User
 
-`PUT /api/user`
+`PUT /api/user/:id`
 
 Example request body:
+
 ```JSON
 {
   "user":{
@@ -230,40 +232,31 @@ Example request body:
 }
 ```
 
-Authentication required, returns the [User](#users-for-authentication)
-
+Returns the [User](#users-for-authentication)
 
 Accepted fields: `email`, `username`, `password`, `image`, `bio`
-
-
 
 ### Get Profile
 
 `GET /api/profiles/:username`
 
-Authentication optional, returns a [Profile](#profile)
-
-
+Authentication optional,Returns a [Profile](#profile)
 
 ### Follow user
 
 `POST /api/profiles/:username/follow`
 
-Authentication required, returns a [Profile](#profile)
+Returns a [Profile](#profile)
 
 No additional parameters required
-
-
 
 ### Unfollow user
 
 `DELETE /api/profiles/:username/follow`
 
-Authentication required, returns a [Profile](#profile)
+Returns a [Profile](#profile)
 
 No additional parameters required
-
-
 
 ### List Articles
 
@@ -295,22 +288,19 @@ Offset/skip number of articles (default is 0):
 
 Authentication optional, will return [multiple articles](#multiple-articles), ordered by most recent first
 
-
-
 ### Feed Articles
 
 `GET /api/articles/feed`
 
 Can also take `limit` and `offset` query parameters like [List Articles](#list-articles)
 
-Authentication required, will return [multiple articles](#multiple-articles) created by followed users, ordered by most recent first.
-
+ will return [multiple articles](#multiple-articles) created by followed users, ordered by most recent first.
 
 ### Get Article
 
-`GET /api/articles/:slug`
+`GET /api/articles/:id`
 
-No authentication required, will return [single article](#single-article)
+No  will return [single article](#single-article)
 
 ### Create Article
 
@@ -329,17 +319,15 @@ Example request body:
 }
 ```
 
-Authentication required, will return an [Article](#single-article)
+ will return an [Article](#single-article)
 
 Required fields: `title`, `description`, `body`
 
 Optional fields: `tagList` as an array of Strings
 
-
-
 ### Update Article
 
-`PUT /api/articles/:slug`
+`PUT /api/articles/:id`
 
 Example request body:
 
@@ -351,24 +339,21 @@ Example request body:
 }
 ```
 
-Authentication required, returns the updated [Article](#single-article)
+Returns the updated [Article](#single-article)
 
 Optional fields: `title`, `description`, `body`
 
-The `slug` also gets updated when the `title` is changed
-
+The `id` also gets updated when the `title` is changed
 
 ### Delete Article
 
-`DELETE /api/articles/:slug`
+`DELETE /api/articles/:id`
 
 Authentication required
 
-
-
 ### Add Comments to an Article
 
-`POST /api/articles/:slug/comments`
+`POST /api/articles/:id/comments`
 
 Example request body:
 
@@ -380,51 +365,40 @@ Example request body:
 }
 ```
 
-Authentication required, returns the created [Comment](#single-comment)
+Returns the created [Comment](#single-comment)
 
 Required field: `body`
 
-
-
 ### Get Comments from an Article
 
-`GET /api/articles/:slug/comments`
+`GET /api/articles/:id/comments`
 
-Authentication optional, returns [multiple comments](#multiple-comments)
-
-
+Authentication optional,Returns [multiple comments](#multiple-comments)
 
 ### Delete Comment
 
-`DELETE /api/articles/:slug/comments/:id`
+`DELETE /api/articles/:id/comments/:id`
 
 Authentication required
 
-
-
 ### Favorite Article
 
-`POST /api/articles/:slug/favorite`
+`POST /api/articles/:id/favorite`
 
-Authentication required, returns the [Article](#single-article)
+Returns the [Article](#single-article)
 
 No additional parameters required
-
-
 
 ### Unfavorite Article
 
-`DELETE /api/articles/:slug/favorite`
+`DELETE /api/articles/:id/favorite`
 
-Authentication required, returns the [Article](#single-article)
+Returns the [Article](#single-article)
 
 No additional parameters required
-
-
 
 ### Get Tags
 
 `GET /api/tags`
 
-No authentication required, returns a [List of Tags](#list-of-tags)
-
+No Returns a [List of Tags](#list-of-tags)
