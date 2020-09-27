@@ -169,6 +169,23 @@ If a request fails any validations, expect a 422 and errors in the following for
 
 ## Endpoints:
 
+### Create User
+
+`POST /api/users/`
+
+Example request body:
+
+```JSON
+{
+  "user":{
+    "name": "Jackob Jake",
+    "username":"jake",
+    "email": "jake@jake.jake",
+    "password": "jakejake"
+  }
+}
+```
+
 ### Authentication:
 
 `POST /api/users/login`
@@ -253,7 +270,6 @@ Example request body:
 
 Returns a [Profile](#profile)
 
-
 ### Unfollow user
 
 `DELETE /api/profiles/:username/follow`
@@ -267,7 +283,6 @@ Example request body:
 ```
 
 Returns a [Profile](#profile)
-
 
 ### List Articles
 
